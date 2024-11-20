@@ -2,6 +2,7 @@ import gradio as gr
 import os
 import sys
 import math
+import time
 from typing import List
 
 import numpy as np
@@ -123,7 +124,12 @@ def process(
     except Exception as e:
         print(e)
         image = Image.new(mode="RGB", size=(512, 512))
+        
+    named_tuple = time.localtime() # get struct_time
+    time_string = time.strftime("%Y_%m_%d_%H_%M_%S", named_tuple)
 
+    output_name = "S3DIFF" + time_string + ".jpg"
+    image.save(output_name, format='JPEG', quality=95)
     return image
 
 
